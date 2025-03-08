@@ -93,7 +93,7 @@ export default function ClickingSigns() {
               style={{
                 top: position.top,
                 left: position.left,
-                width: `${size}px`, // ✅ Apply dynamic size
+                width: `${size}px`,
                 height: `${size}px`,
               }}
               onClick={handleClick}

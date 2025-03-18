@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./ClickingSigns.css";
+import { RestartShare } from "./RestartShare";
 
 export default function ClickingSigns() {
   const [score, setScore] = useState(0);
@@ -71,6 +72,8 @@ export default function ClickingSigns() {
   };
 
   const restartGame = () => {
+    RestartShare(score);
+
     setGameStarted(false);
     setGameOver(false);
     setScore(0);

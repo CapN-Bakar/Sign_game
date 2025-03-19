@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./ClickingSigns.css";
 import { RestartShare } from "./RestartShare";
+import { TweetBtn } from "./TweetBtn";
 
 export default function ClickingSigns() {
   const [score, setScore] = useState(0);
@@ -72,7 +73,7 @@ export default function ClickingSigns() {
   };
 
   const restartGame = () => {
-    RestartShare(score);
+    RestartShare(score); //restart+share twitter
 
     setGameStarted(false);
     setGameOver(false);
@@ -109,6 +110,12 @@ export default function ClickingSigns() {
             <div className="game-over">
               <h2>Game Over! Signs clicked: {score}</h2>
               <button onClick={restartGame}>Restart Game</button>
+              <button
+                className="tweet-sign-btn"
+                onClick={() => TweetBtn(score)}
+              >
+                Tweet Sign
+              </button>
             </div>
           ) : (
             <div className="game-area" onClick={handleMissClick}>

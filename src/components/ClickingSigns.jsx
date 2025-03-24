@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./ClickingSigns.css";
-import { RestartShare } from "./RestartShare";
 import { TweetBtn } from "./TweetBtn";
+import { calculateStreakBonus } from "../StreakBonus";
+import StreakIndicator from "./StreakIndicator";
+import "./Credits.css";
 
 export default function ClickingSigns() {
   const [score, setScore] = useState(0);
@@ -13,6 +15,7 @@ export default function ClickingSigns() {
   const [selectedTime, setSelectedTime] = useState(30);
   const [size, setSize] = useState(80);
   const [lives, setLives] = useState(5);
+  const [streak, setStreak] = useState(0);
 
   useEffect(() => {
     if (gameStarted && timeLeft > 0) {
@@ -39,7 +42,9 @@ export default function ClickingSigns() {
   const handleClick = (event) => {
     event.stopPropagation(); // Prevent counting as a missed click
     if (gameStarted && !gameOver) {
-      setScore((prev) => prev + 1);
+      const bonus = calculateStreakBonus(streak);
+      setScore((prev) => prev + 1 + bonus);
+      setStreak((prev) => prev + 1);
       setSize(Math.random() * 100 + 20);
     }
   };
@@ -56,6 +61,7 @@ export default function ClickingSigns() {
       gameArea.contains(event.target) &&
       event.target !== sign
     ) {
+      setStreak(0);
       setLives((prevLives) => (prevLives > 1 ? prevLives - 1 : 0));
       if (lives === 1) {
         setGameOver(true);
@@ -73,14 +79,13 @@ export default function ClickingSigns() {
   };
 
   const restartGame = () => {
-    RestartShare(score); //restart+share twitter
-
     setGameStarted(false);
     setGameOver(false);
     setScore(0);
     setTimeLeft(selectedTime);
     setSize(80);
     setLives(5);
+    setStreak(0);
   };
 
   return (
@@ -98,7 +103,12 @@ export default function ClickingSigns() {
               <option value={30}>30 seconds</option>
               <option value={60}>60 seconds</option>
             </select>
-            <button onClick={startGame}>Start Game</button>
+            <button className="start-btn" onClick={startGame}>
+              Start Game
+            </button>
+            <a href="https://x.com/rzzz48" className="credits">
+              Made by: <span>@RZZZ48</span>
+            </a>
           </div>
         </>
       ) : (
@@ -106,6 +116,10 @@ export default function ClickingSigns() {
           <h1 className="score">Score: {score}</h1>
           <h2 className="time-left">Time Left: {timeLeft}s</h2>
           <h2 className="lives">Lives: {"❤️".repeat(lives)}</h2>
+          <div className="streak-container">
+            <StreakIndicator streak={streak} />
+          </div>
+
           {gameOver ? (
             <div className="game-over">
               <h2>Game Over! Signs clicked: {score}</h2>

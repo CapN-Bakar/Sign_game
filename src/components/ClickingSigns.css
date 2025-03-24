@@ -121,3 +121,21 @@ button:hover {
     }
   }
   
+  .start-btn {
+    margin-left: 15px; /* Adds space to the left of the button */
+    padding: 10px 20px; /* Ensures a good button size */
+    font-size: 1.2rem; /* Makes the text readable */
+    font-weight: bold;
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .start-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.8);
+  }
+  

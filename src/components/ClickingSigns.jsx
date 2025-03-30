@@ -5,6 +5,7 @@ import { TweetBtn } from "./TweetBtn";
 import { calculateStreakBonus } from "../StreakBonus";
 import StreakIndicator from "./StreakIndicator";
 import "./Credits.css";
+import CryptoTrivia from "./CryptoTrivia";
 
 export default function ClickingSigns() {
   const [score, setScore] = useState(0);
@@ -118,6 +119,9 @@ export default function ClickingSigns() {
           <h2 className="lives">Lives: {"❤️".repeat(lives)}</h2>
           <div className="streak-container">
             <StreakIndicator streak={streak} />
+          </div>
+          <div>
+            <CryptoTrivia />
           </div>
 
           {gameOver ? (

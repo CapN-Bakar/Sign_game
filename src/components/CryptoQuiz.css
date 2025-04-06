@@ -1,0 +1,118 @@
+/* --- Import a modern font (optional, but recommended) --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* --- Modal Backdrop --- */
+.quiz-modal {
+  position: fixed; /* Or 'absolute' if relative to a specific container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent backdrop */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's on top */
+  font-family: 'Poppins', sans-serif; /* Apply modern font */
+  padding: 20px; /* Add padding for smaller screens */
+  box-sizing: border-box; /* Include padding in width/height */
+}
+
+/* --- Quiz Content Box --- */
+.quiz-box {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Orange hue gradient */
+  color: #fff;
+  padding: 30px 40px;
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Deeper shadow */
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  animation: fadeInScale 0.4s ease-out; /* Entrance animation */
+}
+
+/* --- Question Text --- */
+.quiz-box h3 {
+  font-size: 1.5rem; /* Larger font size */
+  font-weight: 500;
+  margin-bottom: 25px;
+  line-height: 1.4;
+  color: #ffffff; /* Brighter white for emphasis */
+}
+
+/* --- Choices List --- */
+.quiz-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0; /* Spacing below list */
+}
+
+/* --- Individual Choice Item --- */
+.quiz-box li {
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle background */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+/* --- Choice Hover State --- */
+.quiz-box li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Selected Choice Item --- */
+.quiz-box li.selected {
+  background: linear-gradient(135deg, #1abc9c, #16a085); /* Teal gradient for selected */
+  color: #ffffff;
+  border-color: #1abc9c;
+  font-weight: 600;
+  box-shadow: 0 5px 10px rgba(26, 188, 156, 0.4); /* Glow effect */
+}
+
+/* --- Feedback Text --- */
+.feedback {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 5px;
+  animation: fadeIn 0.5s ease; /* Fade-in animation */
+}
+
+/* Optional: Different styling based on feedback content */
+/* You might need to adjust the logic in CryptoQuiz.jsx to add classes like 'correct' or 'incorrect' */
+.feedback.correct {
+    color: #2ecc71; /* Green for correct */
+    /* background-color: rgba(46, 204, 113, 0.1); */
+}
+
+.feedback.incorrect {
+    color: #e74c3c; /* Red for incorrect */
+    /* background-color: rgba(231, 76, 60, 0.1); */
+}
+
+
+/* --- Keyframe Animations --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

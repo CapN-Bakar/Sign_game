@@ -6,6 +6,7 @@ import { calculateStreakBonus } from "../StreakBonus";
 import StreakIndicator from "./StreakIndicator";
 import "./Credits.css";
 import CryptoTrivia from "./CryptoTrivia";
+import CryptoQuiz from "./CryptoQuiz"; // 💡 New import
 
 export default function ClickingSigns() {
   const [score, setScore] = useState(0);
@@ -17,6 +18,10 @@ export default function ClickingSigns() {
   const [size, setSize] = useState(80);
   const [lives, setLives] = useState(5);
   const [streak, setStreak] = useState(0);
+
+  // Quiz state
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
 
   useEffect(() => {
     if (gameStarted && timeLeft > 0) {
@@ -39,9 +44,8 @@ export default function ClickingSigns() {
     }
   }, [gameStarted, gameOver, timeLeft]);
 
-  // Handle successful click (score up)
   const handleClick = (event) => {
-    event.stopPropagation(); // Prevent counting as a missed click
+    event.stopPropagation();
     if (gameStarted && !gameOver) {
       const bonus = calculateStreakBonus(streak);
       setScore((prev) => prev + 1 + bonus);
@@ -50,12 +54,9 @@ export default function ClickingSigns() {
     }
   };
 
-  // Handle missed clicks (deduct lives)
   const handleMissClick = (event) => {
     const gameArea = document.querySelector(".game-area");
     const sign = document.querySelector(".sign");
-
-    // If the click happened inside gameArea but NOT on the sign, deduct a life
     if (
       gameStarted &&
       !gameOver &&
@@ -77,6 +78,7 @@ export default function ClickingSigns() {
     setGameStarted(true);
     setSize(80);
     setLives(5);
+    setQuizCompleted(false);
   };
 
   const restartGame = () => {
@@ -87,6 +89,16 @@ export default function ClickingSigns() {
     setSize(80);
     setLives(5);
     setStreak(0);
+    setShowQuiz(false);
+    setQuizCompleted(false);
+  };
+
+  const handleQuizCompletion = (isCorrect) => {
+    setShowQuiz(false);
+    setQuizCompleted(true);
+    if (isCorrect) {
+      setScore((prev) => prev + 10); // Bonus points
+    }
   };
 
   return (
@@ -120,6 +132,7 @@ export default function ClickingSigns() {
           <div className="streak-container">
             <StreakIndicator streak={streak} />
           </div>
+
           <div>
             <CryptoTrivia />
           </div>
@@ -134,6 +147,14 @@ export default function ClickingSigns() {
               >
                 Tweet Sign
               </button>
+
+              {!quizCompleted && !showQuiz && (
+                <button className="quiz-btn" onClick={() => setShowQuiz(true)}>
+                  Take quiz for extra points
+                </button>
+              )}
+
+              {showQuiz && <CryptoQuiz onComplete={handleQuizCompletion} />}
             </div>
           ) : (
             <div className="game-area" onClick={handleMissClick}>

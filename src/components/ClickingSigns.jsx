@@ -7,6 +7,8 @@ import StreakIndicator from "./StreakIndicator";
 import "./Credits.css";
 import CryptoTrivia from "./CryptoTrivia";
 import CryptoQuiz from "./CryptoQuiz"; // 💡 New import
+import SignPriceTicker from "./SignPriceTicker";
+import SignTwitterFeed from "./SignTwitterFeed";
 
 export default function ClickingSigns() {
   const [score, setScore] = useState(0);
@@ -105,8 +107,12 @@ export default function ClickingSigns() {
     <div className="container">
       {!gameStarted ? (
         <>
+          <SignPriceTicker />
+          <SignTwitterFeed />
           <img src="/sign.png" alt="Game Logo" className="game-logo" />
+
           <h1>Clicking Signs</h1>
+
           <div className="game-setup">
             <label>Select Time: </label>
             <select

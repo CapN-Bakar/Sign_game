@@ -1,0 +1,9 @@
+.twitter-feed-container {
+  max-width: 100%;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+a{
+    text-decoration: none;
+}
